@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邦多利 Pt 计算器</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>邦多利 Pt 计算器</h1>
+        </div>
+        <button class="more-button" id="moreButton" type="button" aria-haspopup="dialog" aria-controls="aboutDialog">
+          更多
+        </button>
+      </header>
+
+      <main class="workspace">
+        <section class="control-panel" aria-labelledby="controlTitle">
+          <div class="section-heading">
+            <h2 id="controlTitle">参数输入</h2>
+          </div>
+
+          <form id="calcForm" novalidate>
+            <fieldset>
+              <legend>目标设置</legend>
+              <div class="field-grid two">
+                <label class="field">
+                  <span>目标 Pt</span>
+                  <input id="targetPt" type="number" inputmode="numeric" placeholder="请输入目标 Pt" />
+                </label>
+                <label class="field">
+                  <span>当前 Pt</span>
+                  <input id="currentPt" type="number" inputmode="numeric" placeholder="请输入当前 Pt" />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="legend-with-help">
+                基础参数
+                <span class="help-wrap" tabindex="0">
+                  <span class="help-icon" aria-label="基础参数说明">?</span>
+                  <span class="help-tooltip" role="tooltip">
+                    开一局在结算界面获取详细基本活动点数, 支援乐队pt, 加成以及得分比. 得分比计算公式: 得分/得分奖励P的接近值(15000/10000等)
+                  </span>
+                </span>
+              </legend>
+              <div class="field-grid">
+                <label class="field">
+                  <span>基本 Pt</span>
+                  <input id="basePt" type="number" inputmode="numeric" placeholder="例如 100" />
+                </label>
+                <label class="field">
+                  <span>活动加成 %</span>
+                  <input id="bonusPercent" type="number" inputmode="decimal" step="0.01" placeholder="例如 300%" />
+                </label>
+                <label class="field">
+                  <span>支援乐队 Pt</span>
+                  <input id="supportPt" type="number" inputmode="numeric" placeholder="例如 50" />
+                </label>
+                <label class="field">
+                  <span>得分比</span>
+                  <input id="scoreRatio" type="number" inputmode="decimal" step="0.01" value="15000" />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>计算模式</legend>
+              <input id="smartMode" type="checkbox" hidden />
+              <div class="mode-tabs" aria-label="计算模式">
+                <button class="mode-tab active" type="button" data-mode="single">单局模式</button>
+                <button class="mode-tab" type="button" data-mode="multi">多局模式</button>
+              </div>
+
+              <div class="mode-note" id="modeNote">按当前倍数反推单局分数区间</div>
+
+              <div class="mode-control-panel" id="singleModeControls">
+                <input id="multiplier" type="hidden" value="1" />
+                <div class="segmented-label">消耗倍数</div>
+                <div class="segmented" aria-label="常用消耗倍数">
+                  <button type="button" data-multiplier="1" class="active">1x</button>
+                  <button type="button" data-multiplier="5">5x</button>
+                  <button type="button" data-multiplier="10">10x</button>
+                  <button type="button" data-multiplier="15">15x</button>
+                </div>
+              </div>
+
+              <div class="mode-control-panel" id="multiModeControls" hidden>
+                <div class="field-grid two mode-fields">
+                  <label class="field" id="scoreMinField">
+                    <span>单局分数下限</span>
+                    <input id="scoreMin" type="number" inputmode="numeric" value="0" />
+                  </label>
+                  <label class="field" id="scoreLimitField">
+                    <span>单局分数上限</span>
+                    <input id="scoreLimit" type="number" inputmode="numeric" value="500000" />
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="actions">
+              <button class="secondary-button" id="resetBtn" type="button">重置</button>
+              <button class="primary-button" type="submit">开始计算</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="result-panel" aria-live="polite" aria-labelledby="resultTitle">
+          <div class="result-header">
+            <div>
+              <p>计算结果</p>
+              <h2 id="resultTitle">等待输入</h2>
+            </div>
+          </div>
+
+          <div class="stat-grid" id="statGrid" hidden></div>
+          <div class="result-text" id="resultBody">请填写参数并点击计算。</div>
+        </section>
+      </main>
+
+      <footer class="privacy-note">
+        本网页不储存任何用户信息, 计算均在本地进行.
+      </footer>
+    </div>
+
+    <div class="modal-overlay" id="aboutDialog" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
+      <div class="modal-panel">
+        <button class="modal-close" id="aboutClose" type="button" aria-label="关闭">×</button>
+        <p class="modal-kicker">关于</p>
+        <h2 id="aboutTitle">邦多利 Pt 计算器</h2>
+        <dl class="about-list">
+          <div>
+            <dt>版本号</dt>
+            <dd>1.0.3</dd>
+          </div>
+          <div>
+            <dt>作者</dt>
+            <dd>哈基米德</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
