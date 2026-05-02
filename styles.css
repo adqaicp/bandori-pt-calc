@@ -886,6 +886,17 @@ body.modal-open {
   font-weight: 800;
 }
 
+.about-list a {
+  color: var(--teal);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.about-list a:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
 @media (max-width: 840px) {
   .app-shell {
     width: min(100% - 22px, 640px);
