@@ -160,6 +160,13 @@ legend {
   overflow: visible;
 }
 
+.label-with-help {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  overflow: visible;
+}
+
 .help-wrap {
   position: relative;
   display: inline-flex;
@@ -169,8 +176,8 @@ legend {
 }
 
 .help-icon {
-  width: 19px;
-  height: 19px;
+  width: 18px;
+  height: 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -178,7 +185,7 @@ legend {
   border-radius: 50%;
   background: #fff;
   color: var(--teal);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
   line-height: 1;
   cursor: help;
@@ -189,7 +196,7 @@ legend {
   left: 0;
   bottom: calc(100% + 10px);
   z-index: 5;
-  width: min(360px, calc(100vw - 48px));
+  width: min(380px, calc(100vw - 48px));
   padding: 12px 14px;
   border: 1px solid rgba(215, 222, 230, 0.9);
   border-radius: 8px;
@@ -243,6 +250,18 @@ legend {
   color: #303742;
   font-size: 13px;
   font-weight: 700;
+}
+
+.field .help-icon {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.field .help-tooltip {
+  color: #eef6ff;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 input {

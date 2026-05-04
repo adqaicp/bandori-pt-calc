@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>邦多利 Pt 计算器</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="styles.css?v=1.0.3-2" />
+    <link rel="stylesheet" href="styles.css?v=1.0.4" />
   </head>
   <body>
     <div class="app-shell">
@@ -33,7 +33,13 @@
                   <input id="targetPt" type="number" inputmode="numeric" placeholder="请输入目标 Pt" />
                 </label>
                 <label class="field">
-                  <span>当前 Pt</span>
+                  <span class="label-with-help">
+                    当前 Pt
+                    <span class="help-wrap" tabindex="0">
+                      <span class="help-icon" aria-label="当前 Pt 说明">?</span>
+                      <span class="help-tooltip" role="tooltip">如果你在反推, 这里填0, 目标Pt填写你开一局活动的Pt</span>
+                    </span>
+                  </span>
                   <input id="currentPt" type="number" inputmode="numeric" placeholder="请输入当前 Pt" />
                 </label>
               </div>
@@ -48,22 +54,46 @@
                     开一局在结算界面获取详细基本活动点数, 支援乐队pt, 加成以及得分比. 得分比计算公式: 得分/得分奖励P的接近值(15000/10000等)
                   </span>
                 </span>
-              </legend>
-              <div class="field-grid">
-                <label class="field">
-                  <span>基本 Pt</span>
+                </legend>
+                <div class="field-grid">
+                  <label class="field">
+                  <span class="label-with-help">
+                    基本 Pt
+                    <span class="help-wrap" tabindex="0">
+                      <span class="help-icon" aria-label="基本 Pt 说明">?</span>
+                      <span class="help-tooltip" role="tooltip">任务Live:120, CP活: 70, Live试炼: 130</span>
+                    </span>
+                  </span>
                   <input id="basePt" type="number" inputmode="numeric" placeholder="例如 100" />
                 </label>
                 <label class="field">
-                  <span>活动加成 %</span>
+                  <span class="label-with-help">
+                    活动加成 %
+                    <span class="help-wrap" tabindex="0">
+                      <span class="help-icon" aria-label="活动加成说明">?</span>
+                      <span class="help-tooltip" role="tooltip">乐队的活动加成, 一般在0%-425%之间</span>
+                    </span>
+                  </span>
                   <input id="bonusPercent" type="number" inputmode="decimal" step="0.01" placeholder="例如 300%" />
                 </label>
                 <label class="field">
-                  <span>支援乐队 Pt</span>
+                  <span class="label-with-help">
+                    支援乐队 Pt
+                    <span class="help-wrap" tabindex="0">
+                      <span class="help-icon" aria-label="支援乐队 Pt 说明">?</span>
+                      <span class="help-tooltip" role="tooltip">切换到你要用来控分的乐队, 右侧点击&quot;活动支援乐队&quot;, 支援乐队Pt为综合力/3000. (由于涉及到向上向下取整的问题, 建议还是开一把确认一下)</span>
+                    </span>
+                  </span>
                   <input id="supportPt" type="number" inputmode="numeric" placeholder="例如 50" />
                 </label>
                 <label class="field">
-                  <span>得分比</span>
+                  <span class="label-with-help">
+                    得分比
+                    <span class="help-wrap" tabindex="0">
+                      <span class="help-icon" aria-label="得分比说明">?</span>
+                      <span class="help-tooltip" role="tooltip">任务Live: 15000, CP活: 50000, Live试炼: 26000</span>
+                    </span>
+                  </span>
                   <input id="scoreRatio" type="number" inputmode="decimal" step="0.01" value="15000" />
                 </label>
               </div>
@@ -114,7 +144,13 @@
         <section class="result-panel" aria-live="polite" aria-labelledby="resultTitle">
           <div class="result-header">
             <div>
-              <p>计算结果</p>
+              <p class="label-with-help">
+                计算结果
+                <span class="help-wrap" tabindex="0">
+                  <span class="help-icon" aria-label="计算结果说明">?</span>
+                  <span class="help-tooltip" role="tooltip">如果已经开过一局, 可以通过计算的得分对比实际的得分是否一致. 如果分数和时间足够, 建议反推试一下以免白忙活.</span>
+                </span>
+              </p>
               <h2 id="resultTitle">等待输入</h2>
             </div>
           </div>
@@ -137,7 +173,7 @@
         <dl class="about-list">
           <div>
             <dt>版本号</dt>
-            <dd>1.0.3</dd>
+            <dd>1.0.4</dd>
           </div>
           <div>
             <dt>作者</dt>

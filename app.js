@@ -324,11 +324,30 @@ function buildPlanFromCounts(total, gap, games, counts, ptsMap) {
 }
 
 function formatGameBreakdown(count) {
-  if (count < 5) return `${formatNumber(count)} 局`;
-  const grouped = Math.floor(count / 5) * 5;
-  const rest = count - grouped;
-  if (rest === 0) return `${formatNumber(count)} 局`;
-  return `${formatNumber(count)} 局（${formatNumber(grouped)} 局 + ${formatNumber(rest)} 局）`;
+  if (count <= 0) return `${formatNumber(count)} 局`;
+
+  let rest = count;
+  const parts = [];
+  const boostGroups = [
+    [15, "3火"],
+    [10, "2火"],
+    [5, "1火"],
+  ];
+
+  boostGroups.forEach(([size, label]) => {
+    while (rest >= size) {
+      parts.push(label);
+      rest -= size;
+    }
+  });
+
+  if (rest === 1) {
+    parts.push("0火");
+  } else if (rest > 1) {
+    parts.push(`${formatNumber(rest)}次0火`);
+  }
+
+  return `${formatNumber(count)} 局（${parts.join(" + ")}）`;
 }
 
 function getBaseParams() {
@@ -694,9 +713,9 @@ function renderResult(result) {
       item.className = "solution-item";
       const main = document.createElement("div");
       const title = document.createElement("strong");
-      title.textContent = `${formatNumber(solution.count)} 局`;
+      title.textContent = formatGameBreakdown(solution.count);
       const subtitle = document.createElement("span");
-      subtitle.textContent = `获得 ${formatNumber(solution.pt)} Pt`;
+      subtitle.textContent = `0火每局 ${formatNumber(solution.pt)} Pt`;
       main.append(title, subtitle);
       const range = document.createElement("div");
       range.className = "solution-range";
@@ -759,7 +778,7 @@ function renderResult(result) {
       const top = document.createElement("div");
       top.className = "nearby-plan-top";
       const summary = document.createElement("strong");
-      summary.textContent = `${formatNumber(plan.total)} Pt / ${formatNumber(plan.games)} 局`;
+      summary.textContent = `${formatNumber(plan.total)} Pt / ${formatGameBreakdown(plan.games)}`;
       const delta = document.createElement("span");
       delta.className = plan.delta > 0 ? "delta-positive" : "delta-negative";
       delta.textContent = plan.delta > 0 ? `高于目标 ${formatNumber(plan.delta)} Pt` : `低于目标 ${formatNumber(Math.abs(plan.delta))} Pt`;
@@ -774,7 +793,7 @@ function renderResult(result) {
       lines.className = "nearby-plan-lines";
       plan.lines.forEach((line) => {
         const chip = document.createElement("span");
-        chip.textContent = `${formatNumber(line.count)} 局 ${formatNumber(line.pt)} Pt (${formatScoreRange(line.minScore, line.maxScore)})`;
+        chip.textContent = `${formatGameBreakdown(line.count)} ${formatNumber(line.pt)} Pt (${formatScoreRange(line.minScore, line.maxScore)})`;
         lines.append(chip);
       });
       item.append(lines);
